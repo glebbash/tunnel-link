@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "tunnel-link",
+  "version": "1.0",
+  "description": "Add a button on GitHub repo page to open/clone a repository in a vscode.dev tunnel",
+  "content_scripts": [
+    {
+      "js": ["src/content-script.js"],
+      "matches": ["https://github.com/*", "https://vscode.dev/*"]
+    }
+  ],
+  "options_ui": { "page": "src/options.html" },
+  "permissions": ["storage"]
+}
