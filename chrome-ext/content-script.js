@@ -27,12 +27,9 @@ function addTunnelLink(baseUrl) {
   const tunnelLink = container.appendChild(document.createElement("a"));
   tunnelLink.id = "tunnel-link";
   tunnelLink.href = `${baseUrl}?repo=${window.location.href}`;
-  tunnelLink.textContent = "Open in a Tunnel";
+  tunnelLink.textContent = "Jump In";
 
-  const buttonStyle = document.head.appendChild(
-    document.createElement("style")
-  );
-  buttonStyle.textContent = `
+  document.head.appendChild(document.createElement("style")).textContent = `
     #tunnel-link {
       font-weight: 500;
       border: 1px solid #ffac3eff;
