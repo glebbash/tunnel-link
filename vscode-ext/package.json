@@ -1,0 +1,13 @@
+{
+  "name": "tunnel-link",
+  "publisher": "glebbash",
+  "description": "Add a button on GitHub repo page to open/clone a repository in a vscode.dev tunnel",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.76.0"
+  },
+  "browser": "./extension.js",
+  "activationEvents": [
+    "*"
+  ]
+}
