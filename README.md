@@ -1,6 +1,6 @@
 # tunnel-link
 
-A button on GitHub repo page to open/clone a repository in a vscode.dev tunnel
+Add a link on GitHub repo page to open/clone a repository in a vscode.dev tunnel
 
 ## Development setup
 
