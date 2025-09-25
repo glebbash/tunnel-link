@@ -1,28 +1,31 @@
 const vscode = require("vscode");
 
-// TODO: read from config
-const BASE_FOLDER = "/home/glebbash/DEV";
-
 module.exports.activate = async () => {
-  const currentFolder = vscode.workspace.workspaceFolders?.[0].uri;
+  const config = vscode.workspace.getConfiguration("tunnel-link");
+  const baseFolder = config.get("baseFolder");
+  if (baseFolder === undefined) {
+    return;
+  }
+
+  const workspaceUri = vscode.workspace.workspaceFolders?.[0].uri;
   if (
-    currentFolder.scheme !== "vscode-remote" ||
-    currentFolder.path !== BASE_FOLDER
+    workspaceUri?.scheme !== "vscode-remote" ||
+    workspaceUri?.path !== baseFolder
   ) {
     return;
   }
 
-  const repoUrl = new URLSearchParams(currentFolder.query).get("repo");
+  const repoUrl = new URLSearchParams(workspaceUri.query).get("repo");
   if (!repoUrl) {
     return;
   }
 
-  await openOrCloneRepo(currentFolder, repoUrl);
+  await openOrCloneRepo(workspaceUri, baseFolder, repoUrl);
 };
 
-async function openOrCloneRepo(currentFolder, repoUrl) {
+async function openOrCloneRepo(workspaceUri, baseFolder, repoUrl) {
   const repoName = repoUrl.split("/").at(-1);
-  let repoFolder = vscode.Uri.joinPath(currentFolder, repoName);
+  let repoFolder = vscode.Uri.joinPath(workspaceUri, repoName);
 
   let repoWasCloned = false;
   try {
@@ -44,5 +47,5 @@ async function openOrCloneRepo(currentFolder, repoUrl) {
     return;
   }
 
-  await vscode.commands.executeCommand("git.clone", repoUrl, BASE_FOLDER);
+  await vscode.commands.executeCommand("git.clone", repoUrl, baseFolder);
 }
