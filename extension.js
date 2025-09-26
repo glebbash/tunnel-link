@@ -20,10 +20,6 @@ module.exports.activate = async () => {
     return;
   }
 
-  await openOrCloneRepo(workspaceUri, baseFolder, repoUrl);
-};
-
-async function openOrCloneRepo(workspaceUri, baseFolder, repoUrl) {
   const repoName = repoUrl.split("/").at(-1);
   let repoFolder = vscode.Uri.joinPath(workspaceUri, repoName);
 
@@ -32,20 +28,19 @@ async function openOrCloneRepo(workspaceUri, baseFolder, repoUrl) {
     const stat = await vscode.workspace.fs.stat(repoFolder);
     repoWasCloned = stat.type === vscode.FileType.Directory;
   } catch {}
-
-  if (repoWasCloned) {
-    // drop `?path=...` from URI
-    repoFolder = vscode.Uri.from({
-      scheme: repoFolder.scheme,
-      authority: repoFolder.authority,
-      path: repoFolder.path,
-    });
-
-    await vscode.commands.executeCommand("vscode.openFolder", repoFolder, {
-      forceReuseWindow: true,
-    });
+  if (!repoWasCloned) {
+    await vscode.commands.executeCommand("git.clone", repoUrl, baseFolder);
     return;
   }
 
-  await vscode.commands.executeCommand("git.clone", repoUrl, baseFolder);
-}
+  // drop `?path=...` from URI
+  repoFolder = vscode.Uri.from({
+    scheme: repoFolder.scheme,
+    authority: repoFolder.authority,
+    path: repoFolder.path,
+  });
+
+  await vscode.commands.executeCommand("vscode.openFolder", repoFolder, {
+    forceReuseWindow: true,
+  });
+};

@@ -20,10 +20,7 @@ const server = https.createServer(getCredentials(), async (req, res) => {
   res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
 
   // serve static files
-  const filePath = path.join(
-    "vscode-ext",
-    req.url === "/" ? "index.html" : req.url
-  );
+  const filePath = path.join(".", req.url === "/" ? "index.html" : req.url);
   try {
     const data = await fs.promises.readFile(filePath);
     const ext = path.extname(filePath).toLowerCase();

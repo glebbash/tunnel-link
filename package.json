@@ -1,9 +1,9 @@
 {
   "name": "tunnel-link",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "glebbash",
-  "description": "Add a link on GitHub repo page to open/clone a repository in a vscode.dev tunnel",
-  "icon": "assets/icon128.png",
+  "description": "Add a link on GitHub repo page to open/clone a repository in your VSCode tunnel",
+  "icon": "chrome-ext/icons/icon128.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/glebbash/tunnel-link"
@@ -17,7 +17,7 @@
   ],
   "contributes": {
     "configuration": {
-      "type": "object",
+      "title": "tunnel-link",
       "properties": {
         "tunnel-link.baseFolder": {
           "type": "string",
