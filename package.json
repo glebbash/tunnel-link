@@ -1,6 +1,6 @@
 {
   "name": "tunnel-link",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "glebbash",
   "description": "Add a link on GitHub repo page to open/clone a repository in your VSCode tunnel",
   "icon": "chrome-ext/icons/icon128.png",

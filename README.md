@@ -8,7 +8,7 @@ This VSCode Web extension opens or clones a GitHub repository in a tunnel when a
 
 ## 🔗 Companion `tunnel-link` extension for Chrome
 
-You should also [install companion extension]([here](https://chromewebstore.google.com/detail/tunnel-link/mmnknemeobjjnfkcphlngcpfbimlkojb)) for Chrome that will inject a link on GitHub repository page that you can point to your specific vscode.dev tunnel and base folder.
+You should also [install companion extension](https://chromewebstore.google.com/detail/tunnel-link/mmnknemeobjjnfkcphlngcpfbimlkojb) for Chrome that will inject a link on GitHub repository page that you can point to your specific vscode.dev tunnel and base folder.
 
 ## 👀 Example setup
 
