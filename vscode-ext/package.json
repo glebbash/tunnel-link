@@ -1,9 +1,9 @@
 {
   "name": "tunnel-link",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "glebbash",
   "description": "Add a link on GitHub repo page to open/clone a repository in a vscode.dev tunnel",
-  "icon": "icon128.png",
+  "icon": "assets/icon128.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/glebbash/tunnel-link"
