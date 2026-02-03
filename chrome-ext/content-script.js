@@ -8,7 +8,24 @@ function main() {
       return;
     }
 
-    addTunnelLink(data.baseUrl);
+    const tryInsert = () => addTunnelLink(data.baseUrl);
+
+    // attempt immediately for already-loaded pages
+    tryInsert();
+
+    // observe DOM changes for SPA navigation / dynamic content
+    const observer = new MutationObserver(() => {
+      tryInsert();
+    });
+
+    observer.observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+    });
+
+    // Fallback for late-rendered content
+    setTimeout(tryInsert, 1000);
+    setTimeout(tryInsert, 3000);
   });
 }
 
@@ -18,18 +35,62 @@ function addTunnelLink(baseUrl) {
     document,
     null,
     XPathResult.FIRST_ORDERED_NODE_TYPE,
-    null
+    null,
   ).singleNodeValue;
   if (!container) {
     return;
   }
 
+  if (document.getElementById("tunnel-link")) {
+    return;
+  }
+
   const tunnelLink = container.appendChild(document.createElement("a"));
   tunnelLink.id = "tunnel-link";
-  tunnelLink.href = `${baseUrl}?repo=${window.location.href}`;
+  tunnelLink.href = `${baseUrl}?repo=${getRepoUrl(window.location.href)}`;
   tunnelLink.textContent = "Jump In";
 
-  document.head.appendChild(document.createElement("style")).textContent = `
+  addTunnelLinkStyle();
+
+  // make default code button secondary
+  const defaultCodeButton = document.evaluate(
+    "//button[contains(., 'Code')]",
+    document,
+    null,
+    XPathResult.FIRST_ORDERED_NODE_TYPE,
+    null,
+  ).singleNodeValue;
+  if (defaultCodeButton) {
+    defaultCodeButton.setAttribute("data-variant", "default");
+  }
+}
+
+function getRepoUrl(currentUrl) {
+  try {
+    const url = new URL(currentUrl);
+    if (!url.hostname.endsWith("github.com")) {
+      return url.origin + url.pathname;
+    }
+
+    const parts = url.pathname.split("/").filter(Boolean);
+    if (parts.length >= 2) {
+      return `${url.origin}/${parts[0]}/${parts[1]}`;
+    }
+
+    return url.origin + url.pathname;
+  } catch {
+    return currentUrl;
+  }
+}
+
+function addTunnelLinkStyle() {
+  if (document.getElementById("tunnel-link-style")) {
+    return;
+  }
+
+  const style = document.head.appendChild(document.createElement("style"));
+  style.id = "tunnel-link-style";
+  style.textContent = `
     #tunnel-link {
       font-weight: 500;
       border: 1px solid #ffac3eff;
@@ -46,16 +107,4 @@ function addTunnelLink(baseUrl) {
       outline: none;
     }
   `;
-
-  // make default code button secondary
-  const defaultCodeButton = document.evaluate(
-    "//button[contains(., 'Code')]",
-    document,
-    null,
-    XPathResult.FIRST_ORDERED_NODE_TYPE,
-    null
-  ).singleNodeValue;
-  if (defaultCodeButton) {
-    defaultCodeButton.setAttribute("data-variant", "default");
-  }
 }

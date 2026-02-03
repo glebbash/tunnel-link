@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "tunnel-link",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Add a button on GitHub repo page to open/clone a repository in a vscode.dev tunnel",
   "icons": {
     "16": "icons/icon16.png",
