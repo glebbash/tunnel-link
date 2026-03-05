@@ -32,7 +32,7 @@ function main() {
 function addTunnelLink(baseUrl) {
   const container = document.evaluate(
     // stolen from https://github.com/gitpod-io/browser-extension/blob/main/src/button/button-contributions.ts
-    `xpath:(
+    `(
       //div[contains(@class,'repository-content')]//button[.//span[normalize-space()='Code']]
       | 
       //div[contains(@class,'repository-content')]//button[.//*[contains(concat(' ', normalize-space(@class), ' '), ' octicon-code ')]]
