@@ -52,6 +52,6 @@ Publishing:
 - make sure to update version in `chrome-ext/manifest.json`
 - create zip file of `chrome-ext` folder: `zip -r chrome-ext.zip chrome-ext`
 - go to https://chrome.google.com/webstore/developer/dashboard
-- click `Add new item`
+- click `Add new item` (for update do: `Build` -> `Package` -> `Upload new package`)
 - upload `chrome-ext.zip` file
 - fill in all the details and publish

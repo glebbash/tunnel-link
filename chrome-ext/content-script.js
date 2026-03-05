@@ -31,7 +31,12 @@ function main() {
 
 function addTunnelLink(baseUrl) {
   const container = document.evaluate(
-    "//*[contains(@id, 'repo-content-')]/div/div/div/div[1]/react-partial/div/div/div[2]/div[2]",
+    // stolen from https://github.com/gitpod-io/browser-extension/blob/main/src/button/button-contributions.ts
+    `xpath:(
+      //div[contains(@class,'repository-content')]//button[.//span[normalize-space()='Code']]
+      | 
+      //div[contains(@class,'repository-content')]//button[.//*[contains(concat(' ', normalize-space(@class), ' '), ' octicon-code ')]]
+    )/parent::div`,
     document,
     null,
     XPathResult.FIRST_ORDERED_NODE_TYPE,
